@@ -1,66 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>OOP MM</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="main.js"></script>
+	<meta charset="UTF-8">
+	<title>OOP MM</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="main.js"></script>
 </head>
-<body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			
+<body>
+	<div class="container">
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="index.html">MM</a>
 			</div>
-
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">SETTINGS</a></li>
 				<li><a href="#">ABOUT</a></li>
 			</ul>
+		</nav>
 
+		<div class="btn-group btn-group-justified">
+			<a href="#" class="btn btn-primary">18 CARDS</a>
+			<a href="#" class="btn btn-primary">36 CARDS</a>
+			<a href="#" class="btn btn-primary">54 CARDS</a>
+			<a href="#" class="btn btn-danger">RESET GAME</a>
 		</div>
-	</nav>
 
-  <div id="stats">
-    <div class="games-played">
-      <div class="label">Games Played: </div>
-      <div class="value"></div>
-    </div>
+		<div class="row text-center" id="stats">
+			<div class="col-md-4"><span>5</span> GAMES</div>
+			<div class="col-md-4"><span>11</span> ATTEMPS</div>
+			<div class="col-md-4"><span>77</span> %</div>
+		</div>
 
-    <div class="attempts">
-      <div class="label">Attempts:</div>
-      <div class="value"></div>
-    </div>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1" id="game-area" style="color:white">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean luctus augue eros, eget facilisis sapien iaculis sit amet. Aenean interdum urna sed odio dictum sagittis. Ut nec eros ut nisl facilisis finibus. Nullam sollicitudin nibh a ullamcorper porttitor. Aenean aliquet velit felis, vel rhoncus mauris semper vitae. Sed accumsan elementum pellentesque. In sit amet dictum lectus, id aliquet ipsum. Cras a nisl ut nisi interdum mattis quis volutpat est. Duis non augue malesuada, finibus lacus et, pharetra erat. Proin id magna ac ipsum euismod condimentum. Nam nec risus ornare, volutpat diam nec, molestie magna.
 
-    <div class="accuracy">
-      <div class="label">Accuracy:</div>
-      <div class="value"></div>
-    </div>
+Ut leo ligula, dapibus mollis convallis et, efficitur nec ex. Curabitur id cursus sem. Proin eu pellentesque quam. Cras a convallis sem, ut laoreet ex. Fusce imperdiet, magna non varius sodales, massa nisi fringilla lacus, viverra finibus urna mi ac risus. Aliquam iaculis semper leo a eleifend. Mauris a nibh quis turpis condimentum commodo. Suspendisse cursus sagittis tortor quis porta. Mauris at lacus feugiat, euismod metus at, consectetur augue. Etiam dapibus accumsan finibus. Ut viverra turpis in metus mattis faucibus. Nam accumsan justo mi, ac faucibus eros fringilla vel. Praesent ligula ligula, placerat et molestie ac, rutrum a mauris. Etiam suscipit ipsum sed semper eleifend. Vestibulum mauris erat, vestibulum sed tincidunt id, porttitor sit amet est.
 
-    <button class="reset btn btn-primary" type="reset">Reset Game</button>
-  </div>
+Nulla eu ultricies erat. Donec quis nibh eros. Mauris eget est gravida dolor interdum feugiat. Nulla arcu sapien, semper vel eros vitae, dapibus laoreet lacus. Sed vulputate at urna vitae scelerisque. Ut augue ex, ornare at dolor in, posuere imperdiet felis. Aenean rutrum laoreet ultricies. Sed porta sagittis turpis, at viverra lectus elementum vel. Etiam eget tortor tellus. Suspendisse id dolor sed turpis scelerisque bibendum ut id neque. Curabitur consequat sapien ut tortor viverra, sit amet suscipit ipsum pretium. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam dapibus vulputate nisl. Duis ultricies tincidunt erat. Nullam vulputate lacinia sollicitudin. Cras a dui non turpis tincidunt dictum.
 
-  <div id="main">
-    <div id="game-area">
-    <!-- cards dynamically added here -->
-    </div>
+Suspendisse vitae euismod augue, in consectetur orci. Vivamus nec tristique eros, vel vestibulum mauris. Aenean at arcu purus. Quisque pulvinar purus ligula, at luctus dui finibus posuere. Donec id dolor vitae leo ultrices volutpat in sit amet ex. Donec commodo commodo felis at tincidunt. Nulla justo turpis, tristique nec purus elementum, imperdiet dapibus mauris. Phasellus facilisis elit vel lectus mollis aliquam.
 
-    <div id="select-level">
-      <strong>Select Level</strong><br><br>
-      <button id="18" class="btn btn-success">18 Cards</button>
-      <button id="36" class="btn btn-success">36 Cards</button>
-    </div>
-
-    <!-- the following image is displayed when the game is won -->
-    <img id="img_win" src="images/mm_legacy1.png" alt="Win image">
-
-  </div>
+Morbi eget odio metus. Phasellus hendrerit gravida velit, non hendrerit sapien pretium eu. Sed euismod et dolor sit amet sodales. Cras blandit sodales elementum. Morbi congue venenatis nulla, quis feugiat mauris sodales et. Cras facilisis, massa fringilla scelerisque mollis, risus odio consequat libero, et pharetra enim nulla id ex. Donec auctor tristique congue. Proin maximus cursus metus sit amet laoreet. Aenean vehicula interdum urna sit amet interdum. Fusce quis egestas felis. Nam in risus gravida, faucibus nibh vitae, porta purus. Vivamus sed nisl molestie, tempus sapien eu, lacinia dui. Curabitur ac nulla neque.
+			</div>
+		</div>
 
 
+
+	</div>
 </body>
+
 </html>
