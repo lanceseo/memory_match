@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OOP MM</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">MM</a>
+			</div>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">SETTINGS</a></li>
+				<li><a href="#">ABOUT</a></li>
+			</ul>
+
+		</div>
+	</nav>
+
+  <div id="stats">
+    <div class="games-played">
+      <div class="label">Games Played: </div>
+      <div class="value"></div>
+    </div>
+
+    <div class="attempts">
+      <div class="label">Attempts:</div>
+      <div class="value"></div>
+    </div>
+
+    <div class="accuracy">
+      <div class="label">Accuracy:</div>
+      <div class="value"></div>
+    </div>
+
+    <button class="reset btn btn-primary" type="reset">Reset Game</button>
+  </div>
+
+  <div id="main">
+    <div id="game-area">
+    <!-- cards dynamically added here -->
+    </div>
+
+    <div id="select-level">
+      <strong>Select Level</strong><br><br>
+      <button id="18" class="btn btn-success">18 Cards</button>
+      <button id="36" class="btn btn-success">36 Cards</button>
+    </div>
+
+    <!-- the following image is displayed when the game is won -->
+    <img id="img_win" src="images/mm_legacy1.png" alt="Win image">
+
+  </div>
+
+
+</body>
+</html>
