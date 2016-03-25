@@ -19,3 +19,9 @@ body {
 #stats {
 	background-color: orange;
 }
+
+/* cards styling */
+#game-area img {
+	width: 11%;
+	height: 100px;
+}
