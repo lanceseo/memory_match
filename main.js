@@ -2,6 +2,8 @@
 $(document).ready(function(){
 	$("#game-area").on("click", ".card", function(){
 		//run an OOP function
+		playCards.flip(this);
+		console.log(this);
 
 	});
 	$("#options").on("click", function() {
@@ -38,9 +40,27 @@ var Cards = function() {
 	self.DOM = function(level) {
 		for (var i=0; i<totalCards.length; i++) {
 			var cardFront = $("<img>").attr("src", totalCards[i]);
-			$("#game-area").append(cardFront);
+			var divFront = $("<div class='front'>").append(cardFront);
+			var cardBack = $("<img>").attr("src", "images/mm_back.jpg");
+			var divBack = $("<div class='back'>").append(cardBack);
+            var divCard = $("<div class='card'>").append(divFront, divBack);
+			$("#game-area").append(divCard);
 		}
 	};
+
+	self.flip = function(cardClicked) {
+		var showFront = function() {
+        $(cardClicked).find(".back").hide();
+		};
+		var showBack = function() {
+			setTimeout(function() {
+        		$(cardClicked).find(".back").show();
+		    }, 2000);
+		};
+		showFront();
+		showBack();
+	};
+
 };
 
 var Stats = function() {
@@ -48,5 +68,13 @@ var Stats = function() {
 
 };
 
+var Board = function() {
+	var self = this;
+	self.reset = function() {
+		//reset stats
+		//clear cards, display # cards options
+	}
+
+}
 
 var playCards = new Cards();
