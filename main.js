@@ -1,14 +1,16 @@
 
 $(document).ready(function(){
 	$("#game-area").on("click", ".card", function(){
-		//run an OOP function
 		playCards.flip(this);
-
+		playCards.checkWin();
 	});
-	$("#options").on("click", function() {
-		playCards.getTotalCards(18);
+	$("#options").on("click", ".btn", function() {
+		var numCards = $(this).attr("id");
+		console.log(numCards);
+		playCards.getWinMatch(numCards);
+		playCards.getTotalCards(numCards);
 		playCards.shuffleCards();
-		playCards.DOM(18);
+		playCards.DOM();
 	});
 
 });
@@ -20,9 +22,14 @@ var Cards = function() {
 						 "images/mm_006.jpg", "images/mm_007.jpg", "images/mm_008.jpg", "images/mm_009.jpg"];
 	var backImage = "images/mm_back.jpg";
 	var totalCards = [];
+	var winMatch = 0;
+
+	self.getWinMatch = function(numCards) {
+		winMatch = numCards / 2;
+	}
 	
-	self.getTotalCards = function(level) {
-		var concatCount = (level / frontImages.length);
+	self.getTotalCards = function(numCards) {
+		var concatCount = (numCards / frontImages.length);
 		var allCards = [];
 		for (var i=0; i<concatCount; i++) {
 			allCards = allCards.concat(frontImages);
@@ -42,7 +49,7 @@ var Cards = function() {
         }
 	};
 
-	self.DOM = function(level) {
+	self.DOM = function() {
 		for (var i=0; i<totalCards.length; i++) {
 			var cardFront = $("<img>").attr("src", totalCards[i]);
 			var divFront = $("<div class='front'>").append(cardFront);
@@ -59,10 +66,12 @@ var Cards = function() {
 
 	self.flip = function(cardClicked) {
 		var cardImg1, cardImg2 = null;
+		//check if card is open and flip if not
 		if ($(cardClicked).find(".back").is(':visible')) {
 	        $(cardClicked).find(".back").hide();
 	        flippedCards.push(cardClicked);	        	        
 		}
+		//check if the 2 flipped cards match
 		if (flippedCards.length === 2) {
 			cardImg1 = $(flippedCards[0]).find(".front img").attr("src");
 			cardImg2 = $(flippedCards[1]).find(".front img").attr("src");
@@ -72,12 +81,20 @@ var Cards = function() {
 				flippedCards = [];
 				console.log(self.matchCounter);
 			} else {
-				$(flippedCards[0]).find(".back").show();
-				$(flippedCards[1]).find(".back").show();
-				flippedCards = [];
+				setTimeout(function() {
+					$(flippedCards[0]).find(".back").show();
+					$(flippedCards[1]).find(".back").show();
+					flippedCards = [];
+				}, 1000);
 			}
-		}        
+		}
 	};
+
+	self.checkWin = function() {
+		if (self.matchCounter === winMatch) {
+			console.log("You win!");
+		}
+	}
 
 };
 
