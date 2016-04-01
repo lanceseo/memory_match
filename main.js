@@ -1,11 +1,14 @@
 
 $(document).ready(function(){
 	$("#game-area").on("click", ".card", function(){
+		console.log(this);
+		// clickHandler(this, "card");
 		playCards.flip(this);
 		playCards.checkWin();
 	});
 	$("#options").on("click", ".btn", function() {
 		var numCards = $(this).attr("id");
+		// clickHadler(this, "options");
 		console.log(numCards);
 		playCards.getWinMatch(numCards);
 		playCards.getTotalCards(numCards);
@@ -85,7 +88,7 @@ var Cards = function() {
 					$(flippedCards[0]).find(".back").show();
 					$(flippedCards[1]).find(".back").show();
 					flippedCards = [];
-				}, 1000);
+				}, 1500);
 			}
 		}
 	};
