@@ -22,6 +22,7 @@ var GameTemplate = function(mainElement) {
 	this.element = mainElement;
 	this.cardArray = [];
 	this.flippedArray = [];
+	this.flipCounter = 0;
 	this.matchCounter = 0;
 	this.aMatch = false;
 
@@ -48,44 +49,40 @@ var GameTemplate = function(mainElement) {
 		for (var i=0; i<numCards; i++) {
 			var card = new CardTemplate(this);
 			var cardElement = card.createSelf(totalImages[i], backImage);
-			this.cardArray.push(card);
-			this.element.append(cardElement);
+			self.cardArray.push(card);
+			self.element.append(cardElement);
 		}
 	};
 	this.cardClicked = function(currentCard) {
 		console.log("theCard: ", currentCard);
 		console.log("flipArray", this.flippedArray.length);
 		var theCard = currentCard;
-		if (this.flippedArray.length < 2) {
-			this.flippedArray.push(theCard);
+		if (self.flippedArray.length < 2) {
+			self.flippedArray.push(theCard);
+			self.flipCounter++;
+			console.log("flipCounter ", self.flipCounter);
 		}
-		if (this.flippedArray.length === 2) {
+		if (self.flippedArray.length === 2) {
 			self.checkMatch();
 			self.checkWin();
 		}
 	};
 	this.checkMatch = function() {
-		var cardImg1 = $(this.flippedArray[0]).find(".front img").attr("src");
-		var cardImg2 = $(this.flippedArray[1]).find(".front img").attr("src");
+		var cardImg1 = $(self.flippedArray[0]).find(".front img").attr("src");
+		var cardImg2 = $(self.flippedArray[1]).find(".front img").attr("src");
 		if (cardImg1 === cardImg2) {
 			self.matchCounter++;
+			console.log("matchCounter: ", self.matchCounter);
 			self.flippedArray = [];
-			console.log("yes");
-			self.aMatch = true;
+			self.flipCounter = 0;
+			console.log("a match");
+			return;
 		}
 		//self.flippedArray = [];
-		console.log("no");
-		self.aMatch = false;
+		console.log("no match");
 	};
 	this.checkWin = function() {
 
-	};
-	this.optionClick = function(option){
-		if (isNum(option)) {
-			this.createCards(option);
-		} else {
-			this.resetCards();
-		}
 	};
 	this.resetCards = function() {
 
@@ -115,11 +112,14 @@ var CardTemplate = function(parent) {
 	    $(this).addClass('selected');
 	    //flip here
 	    self.parent.cardClicked(this);
-
-	    if (self.parent.flippedArray.length === 2 && !self.parent.aMatch) {
+	    console.log("flipCounter ", self.parent.flipCounter);
+	    if (self.parent.flipCounter === 2) {
 	    	//remove 'selected', flip back
-	    	console.log("no match");
+	    	console.log("flipping back");
+	    	$(self.parent.flippedArray[0]).removeClass('selected');
+	    	$(self.parent.flippedArray[1]).removeClass('selected');
 	    	self.parent.flippedArray = [];
+	    	self.parent.flipCounter = 0;
 	    }
 	};
 
@@ -127,6 +127,7 @@ var CardTemplate = function(parent) {
 
 /*how to attach images, when to append to HTML output DOM, 
 card clicking function - check selected, check 2 cards flipped already(use parent counter)
+ -error at 4th card -> resolved by resetting flipCounter
  -flip and delay
  -flip back moves, reset counter
  -what to do with cards array?
