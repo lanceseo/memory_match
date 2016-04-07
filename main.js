@@ -5,8 +5,6 @@ $(document).ready(function(){
 	// });
 	$("#options").on("click", ".btn", function() {
 		var numCards = $(this).attr("id");
-		aStat = new StatsTemplate();
-		aStat.setGamesPlayed();
 		aGame = new GameTemplate($("#game-area"));
 		aGame.populateImages(numCards);
 		aGame.createCards(numCards);
@@ -25,6 +23,7 @@ var GameTemplate = function(mainElement) {
 	this.flippedArray = [];
 	this.flipCounter = 0;
 	this.matchCounter = 0;
+	this.aStat = null;
 
 	this.populateImages = function(numCards) {
 		var concatCount = (numCards / frontImages.length);
@@ -53,6 +52,7 @@ var GameTemplate = function(mainElement) {
 			self.cardArray.push(card);
 			self.element.append(cardElement);
 		}
+		self.initializeStats();
 	};
 	this.cardClicked = function(currentCard) {
 		//console.log("theCard: ", currentCard);
@@ -64,9 +64,11 @@ var GameTemplate = function(mainElement) {
 			//console.log("flipCounter ", self.flipCounter);
 		}
 		if (self.flippedArray.length === 2) {
+			self.aStat.setAttempts();
 			self.checkMatch();
 			self.checkWin();
 		}
+		self.aStat.setAccuracy(self.matchCounter);
 	};
 	this.checkMatch = function() {
 		var cardImg1 = $(self.flippedArray[0]).find(".front img").attr("src");
@@ -86,6 +88,10 @@ var GameTemplate = function(mainElement) {
 		if (self.matchCounter === winningMatches) {
 			console.log("You win!");
 		}
+	};
+	this.initializeStats = function() {
+		self.aStat = new StatsTemplate(); 
+		self.aStat.setGamesPlayed();
 	};
 	this.resetCards = function() {
 
@@ -137,12 +143,18 @@ var StatsTemplate = function() {
         $("#games-played span").text(self.gamesPlayed);
 	};
 	this.setAttempts = function() {
-
+		self.attempts++;
+        $("#attempts span").text(self.attempts);
 	};
-	this.setAccuracy = function() {
-
+	this.setAccuracy = function(matchCounter) {
+        self.accuracy = Math.floor((matchCounter / self.attempts) * 100);
+        if (isNaN(self.accuracy)) {
+            $("#accuracy span").text("");
+        }
+        else {
+            $("#accuracy span").text(self.accuracy);
+        }
 	};
-
 };
 
 /*
