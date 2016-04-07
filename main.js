@@ -24,7 +24,6 @@ var GameTemplate = function(mainElement) {
 	this.flippedArray = [];
 	this.flipCounter = 0;
 	this.matchCounter = 0;
-	this.aMatch = false;
 
 	this.populateImages = function(numCards) {
 		var concatCount = (numCards / frontImages.length);
@@ -82,8 +81,12 @@ var GameTemplate = function(mainElement) {
 		console.log("no match");
 	};
 	this.checkWin = function() {
-
+		var winningMatches = totalImages.length / 2;
+		if (self.matchCounter === winningMatches) {
+			console.log("You win!");
+		}
 	};
+
 	this.resetCards = function() {
 
 	};
@@ -128,11 +131,16 @@ var CardTemplate = function(parent) {
 /*how to attach images, when to append to HTML output DOM, 
 card clicking function - check selected, check 2 cards flipped already(use parent counter)
  -error at 4th card -> resolved by resetting flipCounter
+ -match counting, win condition
+
  -flip and delay
- -flip back moves, reset counter
+ -flip back moves
+ -stats
+
+ -resetting
+ -win css/animation/graphic notification
  -what to do with cards array?
 
-how to check match, how to check win*/
+*/
 
 
-// Do more OOP lessons, videos, guides
