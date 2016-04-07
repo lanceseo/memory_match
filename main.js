@@ -3,14 +3,15 @@ $(document).ready(function(){
 	// $("#game-area").on("click", ".card", function(){
 	// 	aGame.cardClick(this);
 	// });
-	// $("#options").on("click", ".btn", function() {
-	// });
-	aGame = new GameTemplate($("#game-area"));
-	aGame.populateImages(18);
-	aGame.shuffleImages();
-	aGame.createCards(18);
+	$("#options").on("click", ".btn", function() {
+		var numCards = $(this).attr("id");
+		aStat = new StatsTemplate();
+		aStat.setGamesPlayed();
+		aGame = new GameTemplate($("#game-area"));
+		aGame.populateImages(numCards);
+		aGame.createCards(numCards);
+	});
 });
-
 
 var GameTemplate = function(mainElement) {
 	var self = this;
@@ -32,6 +33,7 @@ var GameTemplate = function(mainElement) {
 			tempImages = tempImages.concat(frontImages);
 		}
 		totalImages = tempImages;
+		self.shuffleImages();
 	};
 	this.shuffleImages = function() {
 		var curr_index = totalImages.length;
@@ -53,13 +55,13 @@ var GameTemplate = function(mainElement) {
 		}
 	};
 	this.cardClicked = function(currentCard) {
-		console.log("theCard: ", currentCard);
-		console.log("flipArray", this.flippedArray.length);
+		//console.log("theCard: ", currentCard);
+		//console.log("flipArray", this.flippedArray.length);
 		var theCard = currentCard;
 		if (self.flippedArray.length < 2) {
 			self.flippedArray.push(theCard);
 			self.flipCounter++;
-			console.log("flipCounter ", self.flipCounter);
+			//console.log("flipCounter ", self.flipCounter);
 		}
 		if (self.flippedArray.length === 2) {
 			self.checkMatch();
@@ -74,7 +76,6 @@ var GameTemplate = function(mainElement) {
 			console.log("matchCounter: ", self.matchCounter);
 			self.flippedArray = [];
 			self.flipCounter = 0;
-			console.log("a match");
 			return;
 		}
 		//self.flippedArray = [];
@@ -86,12 +87,10 @@ var GameTemplate = function(mainElement) {
 			console.log("You win!");
 		}
 	};
-
 	this.resetCards = function() {
 
 	};
 };
-
 
 var CardTemplate = function(parent) {
 	self = this;
@@ -125,17 +124,39 @@ var CardTemplate = function(parent) {
 	    	self.parent.flipCounter = 0;
 	    }
 	};
+};
+
+var StatsTemplate = function() {
+	var self = this;
+	this.gamesPlayed = 0;
+	this.attempts = 0;
+	this.accuracy = 0;
+
+	this.setGamesPlayed = function() {
+        self.gamesPlayed++;
+        $("#games-played span").text(self.gamesPlayed);
+	};
+	this.setAttempts = function() {
+
+	};
+	this.setAccuracy = function() {
+
+	};
 
 };
 
-/*how to attach images, when to append to HTML output DOM, 
+/*
+> All functionalities first
+how to attach images, when to append to HTML output DOM, 
 card clicking function - check selected, check 2 cards flipped already(use parent counter)
  -error at 4th card -> resolved by resetting flipCounter
  -match counting, win condition
 
+ -total # of cards determined (level selector)
+ -stats
  -flip and delay
  -flip back moves
- -stats
+
 
  -resetting
  -win css/animation/graphic notification
