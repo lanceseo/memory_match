@@ -1,13 +1,19 @@
 var aGame = null;
+var gameSession = sessionStorage;
 $(document).ready(function(){
-	// $("#game-area").on("click", ".card", function(){
-	// 	aGame.cardClick(this);
-	// });
-	$("#options").on("click", ".btn", function() {
+	$("#options").on("click", ".cards", function() {
 		var numCards = $(this).attr("id");
 		aGame = new GameTemplate($("#game-area"));
 		aGame.populateImages(numCards);
 		aGame.createCards(numCards);
+	});
+	$("#options").on("click", "#reset", function() {
+		if (aGame) {
+			aGame.resetClicked();
+			delete aGame;
+		} else {
+			console.log("Game not started. Nothing to reset");
+		}
 	});
 });
 
@@ -19,7 +25,7 @@ var GameTemplate = function(mainElement) {
 	var backImage = "";
 	var totalImages = null;
 	this.element = mainElement;
-	this.cardArray = [];
+	//this.cardArray = [];
 	this.flippedArray = [];
 	this.flipCounter = 0;
 	this.matchCounter = 0;
@@ -49,7 +55,7 @@ var GameTemplate = function(mainElement) {
 		for (var i=0; i<numCards; i++) {
 			var card = new CardTemplate(this);
 			var cardElement = card.createSelf(totalImages[i], backImage);
-			self.cardArray.push(card);
+			//self.cardArray.push(card);
 			self.element.append(cardElement);
 		}
 		self.initializeStats();
@@ -71,6 +77,7 @@ var GameTemplate = function(mainElement) {
 		self.aStat.setAccuracy(self.matchCounter);
 	};
 	this.checkMatch = function() {
+		//Check matches by comparing front face images
 		var cardImg1 = $(self.flippedArray[0]).find(".front img").attr("src");
 		var cardImg2 = $(self.flippedArray[1]).find(".front img").attr("src");
 		if (cardImg1 === cardImg2) {
@@ -93,8 +100,9 @@ var GameTemplate = function(mainElement) {
 		self.aStat = new StatsTemplate(); 
 		self.aStat.setGamesPlayed();
 	};
-	this.resetCards = function() {
-
+	this.resetClicked = function() {
+		self.aStat.clearStats();
+		$("#game-area").empty();
 	};
 };
 
@@ -134,13 +142,23 @@ var CardTemplate = function(parent) {
 
 var StatsTemplate = function() {
 	var self = this;
-	this.gamesPlayed = 0;
+	//this.gamesPlayed = 0;
 	this.attempts = 0;
 	this.accuracy = 0;
 
 	this.setGamesPlayed = function() {
-        self.gamesPlayed++;
-        $("#games-played span").text(self.gamesPlayed);
+        //self.gamesPlayed++;
+        if (gameSession.getItem('totalGames')) {
+        	var tempGames = gameSession.getItem('totalGames');
+        	tempGames++;
+        	gameSession.setItem('totalGames', tempGames);
+        	$("#games-played span").text(tempGames);
+        } else {
+        	var tempGames = 0;
+        	tempGames++;
+        	gameSession.setItem('totalGames', tempGames);
+        	$("#games-played span").text(tempGames);
+        }
 	};
 	this.setAttempts = function() {
 		self.attempts++;
@@ -155,6 +173,14 @@ var StatsTemplate = function() {
             $("#accuracy span").text(self.accuracy);
         }
 	};
+	this.clearStats = function() {
+		$("#games-played span").text("");
+		$("#attempts span").text("");
+		$("#accuracy span").text("");
+		this.attempts = 0;
+		this.accuracy = 0;
+		gameSession.removeItem('totalGames');
+	};
 };
 
 /*
@@ -163,17 +189,19 @@ how to attach images, when to append to HTML output DOM,
 card clicking function - check selected, check 2 cards flipped already(use parent counter)
  -error at 4th card -> resolved by resetting flipCounter
  -match counting, win condition
-
  -total # of cards determined (level selector)
  -stats
+ -reset counter (how to keep #gamesPlayed? > use sessionStorage)
+
+ -add, revise comments
+ -warning to confirm reset
  -flip and delay
  -flip back moves
 
-
- -resetting
  -win css/animation/graphic notification
  -what to do with cards array?
 
+ -extra features > # of matches in Stats 
 */
 
 
