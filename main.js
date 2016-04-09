@@ -1,9 +1,12 @@
 var aGame = null;
+// sessionStorage for storing total # of games played
 var gameSession = sessionStorage;
 $(document).ready(function(){
 	$("#options").on("click", ".cards", function() {
+		// Clicked button's id determines the game level (number of cards to play)
 		var numCards = $(this).attr("id");
 		aGame = new GameTemplate($("#game-area"));
+		// Populate an equal number of images as the number of all cards from base 9 images
 		aGame.populateImages(numCards);
 		aGame.createCards(numCards);
 	});
@@ -21,8 +24,8 @@ var GameTemplate = function(mainElement) {
 	var self = this;
 	var frontImages = ["images/mm_001.jpg", "images/mm_002.jpg", "images/mm_003.jpg", "images/mm_004.jpg", "images/mm_005.jpg",
 				"images/mm_006.jpg", "images/mm_007.jpg", "images/mm_008.jpg", "images/mm_009.jpg"];
-	//var backImage = "images/mm_back.jpg";
-	var backImage = "";
+	var backImage = "images/mm_back.jpg";
+	//var backImage = "";
 	var totalImages = null;
 	this.element = mainElement;
 	//this.cardArray = [];
@@ -53,21 +56,20 @@ var GameTemplate = function(mainElement) {
 	};
 	this.createCards = function(numCards) {
 		for (var i=0; i<numCards; i++) {
+			// Create Card objects equal to numCards
 			var card = new CardTemplate(this);
 			var cardElement = card.createSelf(totalImages[i], backImage);
-			//self.cardArray.push(card);
+			//self.cardArray.push(card); ===========
+			// Append to the game-area DOM
 			self.element.append(cardElement);
 		}
 		self.initializeStats();
 	};
 	this.cardClicked = function(currentCard) {
-		//console.log("theCard: ", currentCard);
-		//console.log("flipArray", this.flippedArray.length);
 		var theCard = currentCard;
 		if (self.flippedArray.length < 2) {
 			self.flippedArray.push(theCard);
 			self.flipCounter++;
-			//console.log("flipCounter ", self.flipCounter);
 		}
 		if (self.flippedArray.length === 2) {
 			self.aStat.setAttempts();
@@ -77,17 +79,15 @@ var GameTemplate = function(mainElement) {
 		self.aStat.setAccuracy(self.matchCounter);
 	};
 	this.checkMatch = function() {
-		//Check matches by comparing front face images
+		// Check matches by comparing front face images
 		var cardImg1 = $(self.flippedArray[0]).find(".front img").attr("src");
 		var cardImg2 = $(self.flippedArray[1]).find(".front img").attr("src");
 		if (cardImg1 === cardImg2) {
 			self.matchCounter++;
-			console.log("matchCounter: ", self.matchCounter);
 			self.flippedArray = [];
 			self.flipCounter = 0;
 			return;
 		}
-		//self.flippedArray = [];
 		console.log("no match");
 	};
 	this.checkWin = function() {
@@ -112,6 +112,7 @@ var CardTemplate = function(parent) {
 	this.parent = parent;
 
 	this.createSelf = function(frontImg, backImg) {
+		// Create card DOM element, attach click handler
 		var cardFront = $("<img>").attr("src", frontImg);
 		var divFront = $("<div class='front'>").append(cardFront);
 		var cardBack = $("<img>").attr("src", backImg);
@@ -121,22 +122,29 @@ var CardTemplate = function(parent) {
     	return self.element;
 	};
 	this.cardClick = function() {
+		// Check if clicked card is selected already or 2 cards are already flipped
 	    if ($(this).hasClass('selected') || self.parent.flippedArray.length >= 2){
 	    	console.log("illegal!");
 	      	return;
 	    }
+	    // Flip clicked card
+	   	$(this).find(".back").hide();
 	    $(this).addClass('selected');
-	    //flip here
+
 	    self.parent.cardClicked(this);
-	    console.log("flipCounter ", self.parent.flipCounter);
+
 	    if (self.parent.flipCounter === 2) {
-	    	//remove 'selected', flip back
-	    	console.log("flipping back");
-	    	$(self.parent.flippedArray[0]).removeClass('selected');
-	    	$(self.parent.flippedArray[1]).removeClass('selected');
-	    	self.parent.flippedArray = [];
-	    	self.parent.flipCounter = 0;
-	    }
+	    	// Flip back non-matching cards
+	    	setTimeout(function() {
+	    		console.log("flipping back");
+		    	$(self.parent.flippedArray[0]).find(".back").show();
+		    	$(self.parent.flippedArray[1]).find(".back").show();
+		    	$(self.parent.flippedArray[0]).removeClass('selected');
+		    	$(self.parent.flippedArray[1]).removeClass('selected');
+		    	self.parent.flippedArray = [];
+		    	self.parent.flipCounter = 0;		    	
+        	}, 1500);
+	    }	    
 	};
 };
 
@@ -192,16 +200,15 @@ card clicking function - check selected, check 2 cards flipped already(use paren
  -total # of cards determined (level selector)
  -stats
  -reset counter (how to keep #gamesPlayed? > use sessionStorage)
+ -flip and delay, flip back moves
 
+ -adjust option selection, stats displays, cards layout (rows)
  -add, revise comments
- -warning to confirm reset
- -flip and delay
- -flip back moves
-
  -win css/animation/graphic notification
  -what to do with cards array?
 
- -extra features > # of matches in Stats 
+ -extra features > # of matches in Stats
+ 	> change tooltips color or bootstrap confirmation for RESET
 */
 
 
