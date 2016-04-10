@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>OOP MM</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -13,32 +14,41 @@
 <body>
 	<div class="container">
 
-
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="index.html">MM</a>
 			</div>
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right hidden-xs">
 				<li><a href="#">SETTINGS</a></li>
 				<li><a href="#">ABOUT</a></li>
 			</ul>
 		</nav>
 
-		<div class="btn-group btn-group-justified" id="options">
-			<a href="#" class="btn btn-primary cards" id="18">18 CARDS</a>
-			<a href="#" class="btn btn-primary cards" id="36">36 CARDS</a>
-			<a href="#" class="btn btn-primary cards" id="54">54 CARDS</a>
-			<a href="#" class="btn btn-danger red-tooltip" id="reset" data-toggle="tooltip" title="This will reset everything, you will lose all stats data!">RESET GAME</a>
+<!-- 		<div class="btn-group btn-group-justified" id="options">
+			<div class="row">
+				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="18">18 CARDS</a>
+				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="36">36 CARDS</a>
+				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="54">54 CARDS</a>
+				<a href="#" class="btn btn-danger col-md-3 col-xs-12 red-tooltip" id="reset" data-toggle="tooltip" title="This will reset everything, you will lose all stats data!">RESET GAME</a>
+			</div>
+		</div> -->
+
+		<div class="row text-center" id="options">
+			<div class="col-md-3 col-xs-4 cards" id="18">18 CARDS</div>
+			<div class="col-md-3 col-xs-4 cards" id="36">36 CARDS</div>			
+			<div class="col-md-3 col-xs-4 cards" id="54">54 CARDS</div>
+			<div class="col-md-3 col-md-offset-0 col-xs-6 col-xs-offset-3" id="reset">RESET</div>
+
 		</div>
 
 		<div class="row text-center" id="stats">
-			<div class="col-md-4" id="games-played"><span>X</span> GAMES</div>
-			<div class="col-md-4" id="attempts"><span>X</span> ATTEMPTS</div>
-			<div class="col-md-4" id="accuracy"><span>X</span> %</div>
+			<div class="col-md-4 col-xs-12" id="games-played"><span>X</span> GAMES</div>
+			<div class="col-md-4 col-xs-6" id="attempts"><span>X</span> ATTEMPTS</div>
+			<div class="col-md-4 col-xs-6" id="accuracy"><span>X</span> %</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-10 col-md-offset-1" id="game-area" style="color:white; border:1px solid yellow;">
+			<div class="col-md-10 col-md-offset-1 col-xs-12" id="game-area">
 				
 			</div>
 		</div>

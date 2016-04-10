@@ -6,14 +6,15 @@ $(document).ready(function(){
 		// Clicked button's id determines the game level (number of cards to play)
 		var numCards = $(this).attr("id");
 		aGame = new GameTemplate($("#game-area"));
-		// Populate an equal number of images as the number of all cards from base 9 images
 		aGame.populateImages(numCards);
 		aGame.createCards(numCards);
+		$(".cards").hide();
 	});
 	$("#options").on("click", "#reset", function() {
 		if (aGame) {
 			aGame.resetClicked();
 			delete aGame;
+			$(".cards").show();
 		} else {
 			console.log("Game not started. Nothing to reset");
 		}
@@ -34,6 +35,7 @@ var GameTemplate = function(mainElement) {
 	this.matchCounter = 0;
 	this.aStat = null;
 
+	// Populate an equal number of images as the number of all cards from base 9 images
 	this.populateImages = function(numCards) {
 		var concatCount = (numCards / frontImages.length);
 		var tempImages = [];
@@ -150,12 +152,10 @@ var CardTemplate = function(parent) {
 
 var StatsTemplate = function() {
 	var self = this;
-	//this.gamesPlayed = 0;
 	this.attempts = 0;
 	this.accuracy = 0;
 
 	this.setGamesPlayed = function() {
-        //self.gamesPlayed++;
         if (gameSession.getItem('totalGames')) {
         	var tempGames = gameSession.getItem('totalGames');
         	tempGames++;
@@ -201,8 +201,10 @@ card clicking function - check selected, check 2 cards flipped already(use paren
  -stats
  -reset counter (how to keep #gamesPlayed? > use sessionStorage)
  -flip and delay, flip back moves
+ -hide card selection option upon click
 
  -adjust option selection, stats displays, cards layout (rows)
+ -change font
  -add, revise comments
  -win css/animation/graphic notification
  -what to do with cards array?

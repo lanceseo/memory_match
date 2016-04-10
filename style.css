@@ -16,8 +16,25 @@ body {
 	margin-right: 10px;
 }
 
+#options > div {
+	height: 28px;
+	background-color: beige;
+	border: 0.1px solid grey;
+	border-radius: 3px;
+}
+
 #stats {
+
+}
+#stats div {
+	height: 28px;
 	background-color: orange;
+	border: 0.1px solid grey;
+	border-radius: 3px;
+}
+
+#game-area {
+	text-align: center;
 }
 
 /* cards styling */
@@ -55,3 +72,13 @@ body {
 
 .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
 .red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
+
+
+@media only screen and (max-width: 768px) {
+  .card {
+    width: 15%;
+    height: 80px;
+  }
+
+
+}
