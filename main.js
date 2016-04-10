@@ -202,9 +202,9 @@ card clicking function - check selected, check 2 cards flipped already(use paren
  -reset counter (how to keep #gamesPlayed? > use sessionStorage)
  -flip and delay, flip back moves
  -hide card selection option upon click
+  -change font
 
  -adjust option selection, stats displays, cards layout (rows)
- -change font
  -add, revise comments
  -win css/animation/graphic notification
  -what to do with cards array?
