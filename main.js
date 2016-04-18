@@ -8,7 +8,7 @@ $(document).ready(function(){
 		aGame = new GameTemplate($("#game-area"));
 		aGame.populateImages(numCards);
 		aGame.createCards(numCards);
-		$(".cards").hide();
+		$(".cards").addClass('animated fadeOut');
 	});
 	$("#options").on("click", "#reset", function() {
 		if (aGame) {
@@ -25,7 +25,7 @@ var GameTemplate = function(mainElement) {
 	var self = this;
 	var frontImages = ["images/mm_001.jpg", "images/mm_002.jpg", "images/mm_003.jpg", "images/mm_004.jpg", "images/mm_005.jpg",
 				"images/mm_006.jpg", "images/mm_007.jpg", "images/mm_008.jpg", "images/mm_009.jpg"];
-	var backImage = "images/mm_back.jpg";
+	var backImage = "images/mm_back.png";
 	//var backImage = "";
 	var totalImages = null;
 	this.element = mainElement;
@@ -85,6 +85,10 @@ var GameTemplate = function(mainElement) {
 		var cardImg1 = $(self.flippedArray[0]).find(".front img").attr("src");
 		var cardImg2 = $(self.flippedArray[1]).find(".front img").attr("src");
 		if (cardImg1 === cardImg2) {
+			$(self.flippedArray[0]).removeClass('animated flipInY');
+			$(self.flippedArray[1]).removeClass('animated flipInY');
+			$(self.flippedArray[0]).addClass('animated flash');
+			$(self.flippedArray[1]).addClass('animated flash');
 			self.matchCounter++;
 			self.flippedArray = [];
 			self.flipCounter = 0;
@@ -95,6 +99,7 @@ var GameTemplate = function(mainElement) {
 	this.checkWin = function() {
 		var winningMatches = totalImages.length / 2;
 		if (self.matchCounter === winningMatches) {
+			$("#game-area>div").addClass('animated bounceOut')
 			console.log("You win!");
 		}
 	};
@@ -105,6 +110,8 @@ var GameTemplate = function(mainElement) {
 	this.resetClicked = function() {
 		self.aStat.clearStats();
 		$("#game-area").empty();
+		$(".cards").removeClass("animated fadeOut");
+		$(".cards").addClass("animated fadeIn");
 	};
 };
 
@@ -126,12 +133,13 @@ var CardTemplate = function(parent) {
 	this.cardClick = function() {
 		// Check if clicked card is selected already or 2 cards are already flipped
 	    if ($(this).hasClass('selected') || self.parent.flippedArray.length >= 2){
+	    	$(this).addClass('animated shake');
 	    	console.log("illegal!");
-	      	return;
+	      	return;      		
 	    }
 	    // Flip clicked card
 	   	$(this).find(".back").hide();
-	    $(this).addClass('selected');
+	    $(this).addClass('selected animated flipInY');
 
 	    self.parent.cardClicked(this);
 
@@ -141,8 +149,8 @@ var CardTemplate = function(parent) {
 	    		console.log("flipping back");
 		    	$(self.parent.flippedArray[0]).find(".back").show();
 		    	$(self.parent.flippedArray[1]).find(".back").show();
-		    	$(self.parent.flippedArray[0]).removeClass('selected');
-		    	$(self.parent.flippedArray[1]).removeClass('selected');
+		    	$(self.parent.flippedArray[0]).removeClass('selected animated flipInY');
+		    	$(self.parent.flippedArray[1]).removeClass('selected animated flipInY');
 		    	self.parent.flippedArray = [];
 		    	self.parent.flipCounter = 0;		    	
         	}, 1500);
@@ -202,15 +210,24 @@ card clicking function - check selected, check 2 cards flipped already(use paren
  -reset counter (how to keep #gamesPlayed? > use sessionStorage)
  -flip and delay, flip back moves
  -hide card selection option upon click
-  -change font
 
+X--- v3 (graphics, animation, layout)
+ -change font
  -adjust option selection, stats displays, cards layout (rows)
- -add, revise comments
+ -change card backface
+ -change button colors 
+ -enhance stats displaying?
+ -flip/rotate animation
  -win css/animation/graphic notification
+
+ -add, revise comments
  -what to do with cards array?
 
- -extra features > # of matches in Stats
- 	> change tooltips color or bootstrap confirmation for RESET
+X--- v4 (extra features)
+ -# of matches in Stats
+ -change tooltips color or bootstrap confirmation for RESET
+ -advanced game features for Settings(from LF points sheet)
+
 */
 
 

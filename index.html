@@ -3,12 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>OOP MM</title>
+	<title>MM OOP - by Lance</title>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="animate.css">
 	<link rel="stylesheet" href="style.css">
 	<script src="main.js"></script>
 </head>
@@ -26,27 +27,18 @@
 			</ul>
 		</nav>
 
-<!-- 		<div class="btn-group btn-group-justified" id="options">
-			<div class="row">
-				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="18">18 CARDS</a>
-				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="36">36 CARDS</a>
-				<a href="#" class="btn btn-primary cards col-md-3 col-xs-4" id="54">54 CARDS</a>
-				<a href="#" class="btn btn-danger col-md-3 col-xs-12 red-tooltip" id="reset" data-toggle="tooltip" title="This will reset everything, you will lose all stats data!">RESET GAME</a>
-			</div>
-		</div> -->
-
 		<div class="row text-center" id="options">
-			<div class="col-md-3 col-xs-4 cards" id="18"><i class="fa fa-clone"></i> 18 CARDS</div>
-			<div class="col-md-3 col-xs-4 cards" id="36"><i class="fa fa-clone"></i> 36 CARDS</div>			
-			<div class="col-md-3 col-xs-4 cards" id="54"><i class="fa fa-clone"></i> 54 CARDS</div>
-			<div class="col-md-3 col-md-offset-0 col-xs-6 col-xs-offset-3" id="reset"><i class="fa fa-times fa-lg"></i> RESET</div>
+			<div class="col-md-3 col-xs-4 cards" id="18"><button><i class="fa fa-clone"></i> 18 CARDS</button></div>
+			<div class="col-md-3 col-xs-4 cards" id="36"><button><i class="fa fa-clone"></i> 36 CARDS</button></div>			
+			<div class="col-md-3 col-xs-4 cards" id="54"><button><i class="fa fa-clone"></i> 54 CARDS</button></div>
+			<div class="col-md-3 col-md-offset-0 col-xs-6 col-xs-offset-3" id="reset"><button><i class="fa fa-times fa-lg"></i> RESET</button></div>
 
 		</div>
 
 		<div class="row text-center" id="stats">
-			<div class="col-md-4 col-xs-12" id="games-played"><span>X</span> GAMES</div>
-			<div class="col-md-4 col-xs-6" id="attempts"><span>X</span> ATTEMPTS</div>
-			<div class="col-md-4 col-xs-6" id="accuracy"><span>X</span> %</div>
+			<div class="col-md-4 col-xs-12" id="games-played"><div class="well">GAMES PLAYED: <span>X</span></div></div>
+			<div class="col-md-4 col-xs-6" id="attempts"><div class="well">ATTEMPTS: <span>X</span></div></div>
+			<div class="col-md-4 col-xs-6" id="accuracy"><div class="well">ACCURACY: <span>X</span>%</div></div>
 		</div>
 
 		<div class="row">
